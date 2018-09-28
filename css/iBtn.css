@@ -10,6 +10,33 @@ html, * {
     margin: 0;
 	box-sizing: border-box;
 }
+
+header {
+	font-family: arial;
+	text-align: center;
+	padding-top: 100px;
+}
+
+header p:nth-child(1) {
+	font-size: 80px;
+	font-weight: bold;
+	color: #bbb9b9;
+}
+
+header p:nth-child(2) {
+	margin-top: 15px;
+	font-size: 25px;
+	color: #bbb9b9;
+}
+
+.vw {
+	display: flex;
+    flex-direction: row;
+    width: 60%;
+    padding-bottom: 60%;
+    margin: 10% auto;
+}
+
 .hide {
 	display: none!important;
 }

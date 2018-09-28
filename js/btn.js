@@ -3,6 +3,7 @@
 	var iBtn = function(dom) {
 		if (dom) {
 			this.dom = dom;
+			iBtn.prototype.init(this.dom);
 		} else {
 			alert("请输入dom节点！");
 		}
@@ -36,15 +37,15 @@
 	iBtn.init = function(selector) {
 		selector = selector || '.ibtn';
 		try{
+			var iBtnInstances = {};
 			var pdoms = document.querySelectorAll(selector);
 			for(var i = 0; i < pdoms.length; i++) {
-				(function() {
-					if (!pdoms[i].id) {
-						pdoms[i].id = "ibtn-" + i;
-					}
-					iBtn.prototype.init(pdoms[i]);
-				})(i);
+				if (!pdoms[i].id) {
+					pdoms[i].id = "ibtn-" + i;
+				}
+				iBtnInstances[pdoms[i].id] = new iBtn(pdoms[i]);
 			}
+			return iBtnInstances;
 		}catch(e){
 			console.log(e);
 		}
@@ -68,7 +69,7 @@
 				dom.style.setProperty('--btn-width', height * iBtn.SCALE + 'px');
 			}
 			if (color !== null) dom.style.setProperty('--btn-color', color);
-			sdom.innerHTML = content !== null ? content : dom.id; 
+			sdom.innerHTML = content !== null ? content : dom.id;
 		},
 		bindApi: function(fn, dom) {
 			dom = dom || this.dom;
@@ -103,9 +104,6 @@
 					iBtn.ONCLICK(event, fn);
 				});
 			}
-		},
-		setScale: function() {
-			
 		}
 	}
 	

@@ -14,6 +14,21 @@
 			app.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 				$scope.request = function(dom) { 
 					var domain = "http://47.106.249.172:6777", 
+					api = "/api/test"; 
+					$http({
+						method: 'GET',
+						url: domain + api
+					}).then(function(res) {
+						setTimeout(function() { 
+								dom.dispatchEvent(dom.responseEv);
+							}, 1000); 
+					}, function(err) {
+						setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000);
+					});
+				}
+				
+				var request = function(dom) { 
+					var domain = "http://47.106.249.172:6777", 
 					api = "/api/collections"; 
 					$http({
 						method: 'GET',
@@ -26,25 +41,56 @@
 						setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000);
 					});
 				}
+				
 				$scope.onInit = function() {
 					console.log("Dom load complete!");
 //					var b1 = new iBtn(document.getElementById('btn123'));
 //					b1.init();
 //					b1.bindApi($scope.request);
-					iBtn.init();
+					var iBtnInstances = iBtn.init();
+					console.log(iBtnInstances);
+					for (var i in iBtnInstances) {
+						(function(i) { 							
+							iBtnInstances[i].bindApi($scope.request, i.dom);
+						})(i);
+					}
 				}
 			}]);
 		</script>
 	</head>
 	<body ng-app="ngApp" ng-controller="IndexCtrl" ng-init="onInit()">
-		<button class="ibtn" content="b1" color="#FF4040" id="btn123"></button>
-		<button class="ibtn" content="b2" color="#FF6A6A"></button>
-		<button class="ibtn" content="b3" color="#FF7F24"></button>
-		<button class="ibtn" content="b4" color="#FF83FA"></button>
-		<button class="ibtn"></button>
+		<header>
+			<p>iBtn.js</p>
+			<p>A smart button</p>
+		</header>
+		<section class="vw">
+			<button class="ibtn" content="b1" color="#FF4040" id="btn123"></button>
+			<button class="ibtn" content="b2" color="#FF6A6A"></button>
+			<button class="ibtn" content="b3" color="#FF7F24"></button>
+			<button class="ibtn" content="b4" color="#FF83FA"></button>
+			<button class="ibtn"></button>
+		</section>
 	</body>
 	<script>
-//		function request(dom) { var domain = "http://47.106.249.172:6777", api = "/api/collections"; $.ajax({ type: "get", url: domain + api, async: true, success: function() { setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000); }, error: function() { setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000); } }); }
+		function request(dom) { 
+			var domain = "http://47.106.249.172:6777", 
+				api = "/api/collections"; 
+				$.ajax({ 
+					type: "get", 
+					url: domain + api, 
+					async: true, 
+					success: function() { 
+						setTimeout(function() {
+							dom.dispatchEvent(dom.responseEv); 
+						}, 1000); 
+					}, 
+					error: function() { 
+						setTimeout(function() { 
+							dom.dispatchEvent(dom.responseEv); 
+						}, 1000); 
+					} 
+				}); 
+		}
 		
 ////		iBtn.init();
 //		var b1 = new iBtn(document.getElementById('btn123'));
