@@ -20,25 +20,20 @@
 						url: domain + api
 					}).then(function(res) {
 						setTimeout(function() { 
+							if (dom.dispatchEvent) {
 								dom.dispatchEvent(dom.responseEv);
-							}, 1000); 
+							} else {
+								dom.fireEvent(dom.responseEv);
+							}
+						}, 1000); 
 					}, function(err) {
-						setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000);
-					});
-				}
-				
-				var request = function(dom) { 
-					var domain = "http://47.106.249.172:6777", 
-					api = "/api/collections"; 
-					$http({
-						method: 'GET',
-						url: domain + api
-					}).then(function(res) {
 						setTimeout(function() { 
+							if (dom.dispatchEvent) {
 								dom.dispatchEvent(dom.responseEv);
-							}, 1000); 
-					}, function(err) {
-						setTimeout(function() { dom.dispatchEvent(dom.responseEv); }, 1000);
+							} else {
+								dom.fireEvent(dom.responseEv);
+							}
+						}, 1000);
 					});
 				}
 				
@@ -63,6 +58,7 @@
 			<p>iBtn.js</p>
 			<p>A smart button</p>
 		</header>
+		<div id="div"></div>
 		<section class="vw">
 			<button class="ibtn" content="b1" color="#FF4040" id="btn123"></button>
 			<button class="ibtn" content="b2" color="#FF6A6A"></button>
@@ -72,25 +68,29 @@
 		</section>
 	</body>
 	<script>
-		function request(dom) { 
-			var domain = "http://47.106.249.172:6777", 
-				api = "/api/collections"; 
-				$.ajax({ 
-					type: "get", 
-					url: domain + api, 
-					async: true, 
-					success: function() { 
-						setTimeout(function() {
-							dom.dispatchEvent(dom.responseEv); 
-						}, 1000); 
-					}, 
-					error: function() { 
-						setTimeout(function() { 
-							dom.dispatchEvent(dom.responseEv); 
-						}, 1000); 
-					} 
-				}); 
-		}
+		/**
+		 * jQuery 测试
+		 * @param {Object} dom
+		 */
+//		function request(dom) { 
+//			var domain = "http://47.106.249.172:6777", 
+//				api = "/api/collections"; 
+//				$.ajax({ 
+//					type: "get", 
+//					url: domain + api, 
+//					async: true, 
+//					success: function() { 
+//						setTimeout(function() {
+//							dom.dispatchEvent(dom.responseEv); 
+//						}, 1000); 
+//					}, 
+//					error: function() { 
+//						setTimeout(function() { 
+//							dom.dispatchEvent(dom.responseEv); 
+//						}, 1000); 
+//					} 
+//				}); 
+//		}
 		
 ////		iBtn.init();
 //		var b1 = new iBtn(document.getElementById('btn123'));

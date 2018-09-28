@@ -1,4 +1,15 @@
-;(function() {
+var curMeta = document.querySelector('meta[name="renderer"]');
+if (curMeta) {
+	curMeta.setAttribute("content", "webkit");
+} else {
+	var meta = document.createElement('meta');
+	meta.name = "renderer";
+	meta.content = "webkit";
+	document.head.prepend(meta);
+}
+
+
+(function() {
 	//Constructor
 	var iBtn = function(dom) {
 		if (dom) {
@@ -18,20 +29,19 @@
 	iBtn.FONT = 'arial';
 	iBtn.FONT_SIZE = 14;
 	iBtn.ONCLICK = function(e, fn, dom) {
-		var pdom = e.currentTarget,
-			idom = e.currentTarget.childNodes[0];
-		pdom.classList.add("shade");
-		pdom.setAttribute('disabled', "disabled");
+		var idom = dom.childNodes[0];
+		dom.classList.add("shade");
+		dom.setAttribute('disabled', "disabled");
 		idom.classList.remove("hide");
 		if (fn) fn(dom);	
 	}
 	
-	iBtn.ONRES = function(e) {
-		var pdom = e.currentTarget,
-			idom = e.currentTarget.childNodes[0];
+	iBtn.ONRES = function(e, dom) {
+		console.log("response");
+		var idom = dom.childNodes[0];
 		idom.classList.add("hide"); 
-		pdom.classList.remove("shade");
-		pdom.removeAttribute('disabled'); 
+		dom.classList.remove("shade");
+		dom.removeAttribute('disabled'); 
 	}
 	
 	iBtn.init = function(selector) {
@@ -76,18 +86,18 @@
 			dom.clickEv = new Event('click');
 			dom.responseEv = new Event('onResponse');
 			if(dom.addEventListener) {
-				dom.addEventListener('click', function() {
-					iBtn.ONCLICK(event, fn, dom);
+				dom.addEventListener('click', function(e) {
+					iBtn.ONCLICK(e, fn, dom);
 				});
-				dom.addEventListener('onResponse', function() {
-					iBtn.ONRES(event);
+				dom.addEventListener('onResponse', function(e) {
+					iBtn.ONRES(e, dom);
 				});
 			} else {
-				dom.attachEvent('click', function() {
-					iBtn.ONCLICK(event, fn, dom);
+				dom.attachEvent('click', function(e) {
+					iBtn.ONCLICK(e, fn, dom);
 				});
-				dom.attachEvent('onResponse', function() {
-					iBtn.ONRES(event);
+				dom.attachEvent('onResponse', function(e) {
+					iBtn.ONRES(e, dom);
 				});
 			}
 		},
@@ -110,5 +120,4 @@
 	window['iBtn'] = iBtn; //在window对象中注册一个iBtn
 	
 })()
-
 
