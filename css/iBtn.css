@@ -1,0 +1,146 @@
+:root {
+    --btn-color: #00a8fe;
+    --btn-width: 100px;
+    --btn-height: 40px;
+  }
+
+
+html, * {
+    padding: 0;
+    margin: 0;
+	box-sizing: border-box;
+}
+.hide {
+	display: none!important;
+}
+
+.shade {
+	opacity: 0.5;
+}
+
+.ibtn {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
+	width: var(--btn-width);
+	height: var(--btn-height);
+	line-height: var(--btn-height);
+	background: #ffffff;
+	border: 1px solid var(--btn-color);
+	color: var(--btn-color);
+	border-radius: 5px;
+	margin: 0 auto;	
+	font-family: arial;
+	padding: 0.5% 1%;
+	outline: none;
+	text-decoration: none;
+}
+
+.ibtn:hover {
+	cursor: pointer;
+	background: var(--btn-color);
+	color: #FFFFFF;
+}
+
+.ibtn:active {
+	opacity: 0.5;
+	outline: none;
+	box-shadow: 0 0 0 5px rgba(255,255,255,0.3);
+}
+
+.ibtn:hover .btn-load-effect span {
+	background: #FFFFFF;
+}
+
+.ibtn .btn-content {
+	flex: 2;
+	width: 50%;
+	line-height: 100%;
+	text-align: center;
+	margin-right: 5%;
+}
+/*
+.btn-load-effect {
+	display: none;
+	position: relative;
+	width: 30%;
+	padding-bottom: 29%;
+	height: 100%;
+	margin-left: 5%;
+}
+
+.btn-load-effect span {
+	display: inline-block;
+	width: 16%;
+	height: 16%;
+	border-radius: 50%;
+	background: #00A8FE;
+	position: absolute;
+	-webkit-animation: load 1.04s ease infinite;
+	animation: load 1.04s ease infinite;
+}
+
+@keyframes load {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+.btn-load-effect span:nth-child(1) {
+	left: 0;
+	top: 42%;
+	-webkit-animation-delay: 0.13s;
+	animation-delay: 0.13s;
+}
+
+.btn-load-effect span:nth-child(2) {
+	left: 10%;
+	top: 10%;
+	-webkit-animation-delay: 0.26s;
+}
+
+.btn-load-effect span:nth-child(3) {
+	left: 42%;
+	top: 0;
+	-webkit-animation-delay: 0.39s;
+	animation-delay: 0.39s;
+}
+
+.btn-load-effect span:nth-child(4) {
+	top: 10%;
+	right: 10%;
+	-webkit-animation-delay: 0.52s;
+	animation-delay: 0.52s;
+}
+
+.btn-load-effect span:nth-child(5) {
+	right: 0;
+	top: 42%;
+	-webkit-animation-delay: 0.65s;
+	animation-delay: 0.65s;
+}
+
+.btn-load-effect span:nth-child(6) {
+	right: 10%;
+	bottom: 10%;
+	-webkit-animation-delay: 0.78s;
+	animation-delay: 0.78s;
+}
+
+.btn-load-effect span:nth-child(7) {
+	bottom: 0;
+	left: 42%;
+	-webkit-animation-delay: 0.91s;
+	animation-delay: 0.91s;
+}
+
+.btn-load-effect span:nth-child(8) {
+	bottom: 10%;
+	left: 10%;
+	-webkit-animation-delay: 1.04s;
+	animation-delay: 1.04s;
+}*/
