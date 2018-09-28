@@ -29,6 +29,7 @@ if (curMeta) {
 	iBtn.FONT = 'arial';
 	iBtn.FONT_SIZE = 14;
 	iBtn.ONCLICK = function(e, fn, dom) {
+		console.log("click");
 		var idom = dom.childNodes[0];
 		dom.classList.add("shade");
 		dom.setAttribute('disabled', "disabled");
@@ -84,19 +85,20 @@ if (curMeta) {
 		bindApi: function(fn, dom) {
 			dom = dom || this.dom;
 			dom.clickEv = new Event('click');
-			dom.responseEv = new Event('onResponse');
+			dom.responseEv = new Event('onres');
 			if(dom.addEventListener) {
 				dom.addEventListener('click', function(e) {
 					iBtn.ONCLICK(e, fn, dom);
 				});
-				dom.addEventListener('onResponse', function(e) {
+				dom.addEventListener('onres', function(e) {
+					console.log("onres");
 					iBtn.ONRES(e, dom);
 				});
 			} else {
 				dom.attachEvent('click', function(e) {
 					iBtn.ONCLICK(e, fn, dom);
 				});
-				dom.attachEvent('onResponse', function(e) {
+				dom.attachEvent('onres', function(e) {
 					iBtn.ONRES(e, dom);
 				});
 			}

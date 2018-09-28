@@ -7,8 +7,7 @@
 		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
-		<script type="text/javascript" src="js/btn.js"></script>
-		<script src="http://47.106.249.172:6777/api/collections"></script>
+		<script type="text/javascript" src="js/iBtn.js"></script>
 		<script>
 			var app = angular.module('ngApp', []);
 			app.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
@@ -20,11 +19,25 @@
 						url: domain + api
 					}).then(function(res) {
 						setTimeout(function() { 
-							if (dom.dispatchEvent) {
-								dom.dispatchEvent(dom.responseEv);
-							} else {
-								dom.fireEvent(dom.responseEv);
+							try {
+								if (dom.dispatchEvent && dom.responseEv) { 
+									console.log(dom.responseEv instanceof Event);
+									dom.dispatchEvent(dom.responseEv); 
+									console.log(dom.responseEv);
+								} else { 
+									dom.fireEvent(dom.responseEv); 
+								}
+							var d = document.getElementById("div");
+							var ev = new Event("test");
+							d.addEventListener("test", function() {
+								console.log("div ev");
+							});
+							console.log(ev);
+							d.dispatchEvent(ev);	
+							} catch(e) {
+								console.log(e);
 							}
+							
 						}, 1000); 
 					}, function(err) {
 						setTimeout(function() { 
@@ -43,14 +56,24 @@
 //					b1.init();
 //					b1.bindApi($scope.request);
 					var iBtnInstances = iBtn.init();
-					console.log(iBtnInstances);
 					for (var i in iBtnInstances) {
 						(function(i) { 							
 							iBtnInstances[i].bindApi($scope.request, i.dom);
 						})(i);
 					}
+					
+					$scope.trigger = function() {
+						var ins = iBtnInstances["btn123"].dom;
+						ins.dispatchEvent(ins.clickEv);
+					}
+					$scope.trigger2 = function() {
+						var ins = iBtnInstances["btn123"].dom;
+						ins.dispatchEvent(ins.responseEv);
+					}
 				}
-			}]);
+				
+				
+ 			}]);
 		</script>
 	</head>
 	<body ng-app="ngApp" ng-controller="IndexCtrl" ng-init="onInit()">
@@ -65,6 +88,8 @@
 			<button class="ibtn" content="b3" color="#FF7F24"></button>
 			<button class="ibtn" content="b4" color="#FF83FA"></button>
 			<button class="ibtn"></button>
+			<button ng-click="trigger()">click</button>
+			<button ng-click="trigger2()">cancel</button>
 		</section>
 	</body>
 	<script>
